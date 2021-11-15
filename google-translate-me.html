@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <title>Chữ Không google-translate</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    
+<div id="google_translate_element"></div>
+
+<div id="my">hello</div>
+<pre></pre>
+<script>
+var
+d = document,
+count = 0,
+objAnswer
+d.id = (id)=>{return d.getElementById(id)}
+
+var
+getResult = ()=>{
+  var
+  my = d.id('my')
+  objAnswer.postMessage({cmd:"getResult",data:my.innerText})
+}
+function triggerHtmlEvent(element, eventName) {
+  var event;
+  if(document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+  } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+  } 
+}
+var translate = (value)=>{
+    my.innerText = value || my.innerText
+    var ele = google_translate_element.querySelector('select')
+    if(ele.value!='vi'){
+      ele.value='vi'
+      triggerHtmlEvent(ele,'change')
+    }
+}
+window.addEventListener("load",()=>{
+  // if(location.search){
+  //   var txt = decodeURI(location.search)
+  //   txt = txt.slice(1,txt.length)
+  //   my.innerText = txt
+  // }
+  //window.top.postMessage("The iframe send");
+
+})
+var count = 0;
+window.addEventListener("message", (event) => {
+ //console.log(event.data);
+ //alert(event.data)
+ count = 0;
+ objAnswer = event.source;
+ var data = event.data
+ switch(data.cmd){
+  case 'translate':  translate(data.data);break;
+  case 'getResult':  getResult();break;
+ }
+}, false);
+
+window.addEventListener("DOMContentLoaded", function () {
+  my.addEventListener('DOMSubtreeModified',()=>{
+    //console.log('DOMSubtreeModified');
+    if(count>1){
+      //objAnswer.postMessage({key:"google-translate",text:my.innerText})
+      //console.log(my.innerText);
+      
+    }
+  })
+
+  my.addEventListener('DOMNodeInserted',()=>{
+    //console.log('DOMNodeInserted');
+  })
+  my.addEventListener('DOMNodeRemoved',()=>{
+    //console.log('DOMNodeRemoved');
+
+    count++
+  })  
+})
+</script>
+<script type="text/javascript">
+    var p
+function googleTranslateElementInit() {
+  p = new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+</html>

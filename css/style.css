@@ -1,0 +1,101 @@
+ .active { background-color:#3b99ff;}
+ .isonline {background-color:#3b99ff;}
+ .show-online{display:block}
+ .has-sms { font-weight: bold;}
+ /* Sticky footer styles
+-------------------------------------------------- */
+html {
+  display: block;
+  /*position: relative;*/
+/*  height: 90%;
+  min-height: 90%;*/
+}
+body {
+  display: flex;
+ /* flex-direction: column;*/
+  margin: 0;
+/*  -webkit-font-smoothing: antialiased;*/
+/*  margin: 0 auto;
+  height: 90%;
+  min-height: 90%;*/
+  /*margin-bottom: 0px; /* Margin bottom by footer height */
+}
+html{
+  height: 100%
+}
+html,body{
+  width: 100%;
+  /*height: 100%;*/
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+/* login */
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+/*end login*/
+
+.container {
+  width: 100%;
+ /* max-width: 680px;*/
+  padding: 0 15px;
+  height:-webkit-fill-available;
+  min-height: -webkit-fill-available;
+  /* 
+  overflow-y: auto; */
+}
+
+.overflowable {
+  height: 240px;
+  overflow-y: auto;
+  /* border: 1px solid #000; */
+}
+.overflowable div{
+  padding: 2px;
+}
+my-tabs{
+  width: 100%;
+}
+.tab-pane{
+    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+}
+.tab-content{
+  height: -webkit-fill-available;
+  min-height: -webkit-fill-available;
+}
