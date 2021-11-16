@@ -183,10 +183,10 @@ function createScripTranslate (bodyIframe){
 }
 window['createScripTranslate'] = createScripTranslate
 function scrollWindow (yourWindow) {
-    var self = yourWindow,
+    var self = yourWindow.contentWindow,
     offsetHeight = self.document.body.offsetHeight,
     next = 0,
-    go = 50
+    go = yourWindow.offsetHeight
     
     var myVar = setInterval(()=>{
       offsetHeight = self.document.body.offsetHeight,
@@ -194,7 +194,7 @@ function scrollWindow (yourWindow) {
       next+= go
       if(next>offsetHeight)
         clearInterval(myVar);
-    }, 10);
+    }, 800);
 }
 window['scrollWindow'] = scrollWindow
 function Epub() {
@@ -454,8 +454,11 @@ Epub.prototype.init = ()=>{
     var bodyIframe = displayContentEPUB.contentWindow.document.body
     createScripTranslate(bodyIframe)
     setTimeout(()=>{
-      scrollWindow(displayContentEPUB.contentWindow)
+      
     },5000)
+  }
+  cmdScrollTranslateEPUB.onclick = (event)=>{
+    scrollWindow(displayContentEPUB)
   }
   //displayContentEPUB.contentWindow.document.addEventListener('fetch', event => {
   // myFrame.contentWindow.document.addEventListener('fetch', event => {

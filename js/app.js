@@ -130,6 +130,9 @@ init = ()=>{
       scrollWindow(iframeTranslateFromText.contentWindow)
     },5000)
   }
+  cmdScrollTranslateTXT.onclick = (event)=>{
+    scrollWindow(displayContentEPUB)
+  }
   downloadFile.onclick = ()=>{
     var MIME_TYPE = "text/html";
     var context = iframeTranslateFromText.contentWindow.document.body.querySelector("div[id='my']")
