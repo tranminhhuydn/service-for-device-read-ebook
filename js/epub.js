@@ -147,6 +147,7 @@ function overrideXMLHttpRequest (objectIframe){
   }
   this.lineByLine = async function (){
     parserLog()
+    uiProgressEPUB.style.display='block'
     var 
     fonts,
     doc = this.objectIframe.document.body
@@ -169,6 +170,10 @@ function loadingBarStatus(current, obj,fonts) {
         f.innerHTML = v.c 
         break;
       }
+  }
+  if(current==obj.length){
+    alert('finish')
+    uiProgressEPUB.style.display='none'
   }
   uiBarEPUB.style.width = (((current)*100)/obj.length)+'%'
 }
