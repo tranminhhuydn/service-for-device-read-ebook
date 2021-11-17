@@ -131,34 +131,51 @@ function overrideXMLHttpRequest (objectIframe){
     }
     proxiedSend.apply(this, arguments); // reset/reapply original send method
   }
-  
-  this.lineByLine = function (){
+  async function* asyncGeneratorMyCache() {
+    let i = 0;
+    while (i < self.myCache.length) {
+      yield self.myCache[i];
+      i++;
+    }
+  }
+  function* asyncObjcet(objcet) {
+    let i = 0;
+    while (i < objcet.length) {
+      yield Promise.resolve(objcet[i]);
+      i++;
+    }
+  }
+  this.lineByLine = async function (){
     parserLog()
     var 
     fonts,
     doc = this.objectIframe.document.body
     if(this.targetIdContent)
       doc = this.objectIframe.document.body.querySelector("div[id='"+this.targetIdContent+"']")
-    //doc.innerText = doc.innerText.replace(/[‘’]/g,"'")
-    // var innerHTML = doc.innerHTML
-    // this.myCache.forEach(v=>{
-    //   if(innerHTML.indexOf(v.i)!=-1){
-    //     console.log(v.c);
-    //     innerHTML = innerHTML.replace(v.k,v.c)
-    //   }
-    // })
-    // doc.innerHTML = innerHTML 
-
+    
     fonts = doc.querySelectorAll('font font')
-    for(var i =0;i<fonts.length;i++){
-      var f = fonts[i]
-      this.myCache.findIndex(v=>{
-        if(f.innerText.trim()==v.k.trim())
-          f.innerHTML = v.c 
-      })
-    }
+    
+    var current = 0;
+    self.myCache.map(() => task().then((res) =>{loadingBarStatus(current++, self.myCache,fonts)}));
+    await Promise.all(self.myCache);
   }
 }
+
+function loadingBarStatus(current, obj,fonts) {
+  for(var i =0;i<fonts.length;i++){
+      var f = fonts[i]
+      var v = obj[current]
+      if(f.innerText.trim()==v.k.trim())
+        f.innerHTML = v.c 
+  }
+  uiBarEPUB.style.width = (((current)*100)/obj.length)+'%'
+}
+function task(obj) {
+  return new Promise(res => {
+    setTimeout(res,1);
+  })
+}
+
 window['overrideXMLHttpRequest'] = overrideXMLHttpRequest
 
 function createScripTranslate (bodyIframe){
@@ -194,7 +211,7 @@ function scrollWindow (yourWindow) {
       next+= go
       if(next>offsetHeight)
         clearInterval(myVar);
-    }, 800);
+    }, 100);
 }
 window['scrollWindow'] = scrollWindow
 function Epub() {

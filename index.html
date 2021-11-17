@@ -53,13 +53,25 @@
 #listIframesEpub  iframe {
   width: 100%;
 }
+.uiProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+.uiBar {
+  width: 1%;
+  height:2px;
+  background-color: #4CAF50;
+}
 </style>   
 
 </head>
 <body ng-app="myApp">
-
   <my-tabs>
     <my-pane title = "Source EPUB" icon = 'glyphicon glyphicon-open' >
+      <div id="uiProgressEPUB" class="uiProgress">
+        <div id="uiBarEPUB" class="uiBar"></div>
+      </div>
       <input type="file" id="inputSourceEpubV2" multiple>
       <input type="button" id='cmdTranslateEPUB' value = "Show Tool Translate">
       <input type="button" id='cmdScrollTranslateEPUB' value = "Scroll and translate">
@@ -72,6 +84,9 @@
       <iframe id="displayContentEPUB"></iframe>
     </my-pane>
     <my-pane title = "Source File txt" icon = 'glyphicon glyphicon-open' >
+      <div id="uiProgressTXT" class="uiProgress">
+        <div id="uiBarTXT" class="uiBar"></div>
+      </div>
       <input type="file" id="inputSource" multiple>
       <input type="button" id="cmdJoinLine" value='Join Line'>
       <textarea id='sourceFile' style="display:none"></textarea>
