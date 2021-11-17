@@ -171,7 +171,7 @@ function loadingBarStatus(current, obj,fonts) {
         break;
       }
   }
-  if(current==obj.length){
+  if(current>=obj.length){
     alert('finish')
     uiProgressEPUB.style.display='none'
   }
