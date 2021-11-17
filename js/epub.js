@@ -202,16 +202,16 @@ window['createScripTranslate'] = createScripTranslate
 function scrollWindow (yourWindow) {
     var self = yourWindow.contentWindow,
     offsetHeight = self.document.body.offsetHeight,
-    next = 0,
+    next = self.scrollY,
     go = yourWindow.offsetHeight
     
     var myVar = setInterval(()=>{
-      offsetHeight = self.document.body.offsetHeight,
+      offsetHeight = self.document.body.offsetHeight
       self.scroll(0,next)
       next+= go
       if(next>offsetHeight)
         clearInterval(myVar);
-    }, 100);
+    }, 10);
 }
 window['scrollWindow'] = scrollWindow
 function Epub() {
@@ -477,30 +477,6 @@ Epub.prototype.init = ()=>{
   cmdScrollTranslateEPUB.onclick = (event)=>{
     scrollWindow(displayContentEPUB)
   }
-  //displayContentEPUB.contentWindow.document.addEventListener('fetch', event => {
-  // myFrame.contentWindow.document.addEventListener('fetch', event => {
-  //   // Let the browser do its default thing
-  //   // for non-GET requests.
-  //   if (event.request.method != 'GET') return;
-
-  //   // Prevent the default, and handle the request ourselves.
-  //   event.respondWith(async function() {
-  //     // Try to get the response from a cache.
-  //     const cache = await caches.open('dynamic-v1');
-  //     const cachedResponse = await cache.match(event.request);
-
-  //     if (cachedResponse) {
-  //       // If we found a match in the cache, return it, but also
-  //       // update the entry in the cache in the background.
-  //       event.waitUntil(cache.add(event.request));
-  //       return cachedResponse;
-  //     }
-
-  //     // If we didn't find a match in the cache, use the network.
-  //     return fetch(event.request);
-  //   }());
-  //});
-
 }
 
 
