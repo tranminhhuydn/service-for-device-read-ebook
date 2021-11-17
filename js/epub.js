@@ -165,8 +165,10 @@ function loadingBarStatus(current, obj,fonts) {
   for(var i =0;i<fonts.length;i++){
       var f = fonts[i]
       var v = obj[current]
-      if(f.innerText.trim()==v.k.trim())
+      if(f.innerText.trim()==v.k.trim()){
         f.innerHTML = v.c 
+        break;
+      }
   }
   uiBarEPUB.style.width = (((current)*100)/obj.length)+'%'
 }
