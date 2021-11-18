@@ -63,8 +63,80 @@ function overrideXMLHttpRequest (objectIframe){
       if(!Array.isArray(ele.text))
         parser(ele.text,ele.request)
     })
-  }
+  },
+  parserLogTC = (eleText,eleRequest)=>{
+    var re =[]
+    if(Array.isArray(eleText))
+      for(var texts,k =0;k<eleText.length;k++){
+        texts = eleText[k]
+        if(!Array.isArray(texts))
+          re = re.concat(parserTC(texts,eleRequest[0]))
+        re = re.concat(parserTC(texts[0],eleRequest[k]))      
+      }
 
+    if(!Array.isArray(eleText))
+       re = re.concat(parserTC(eleText,eleRequest))
+    return re;
+  },
+  parserTC = (text,request)=>{
+    var
+    eleCache = [],
+    parser = new DOMParser(),
+    doc = parser.parseFromString(text, "text/html"),
+    line = doc.querySelectorAll('i a'),
+    lineTranslate = doc.querySelectorAll('b a')
+
+    if(!line||line.length==0){
+      line = doc.querySelectorAll('i')
+      lineTranslate = doc.querySelectorAll('b')
+    }
+
+    if(!line||line.length==0){
+      lineTranslate = doc.querySelectorAll('a')
+      doc = parser.parseFromString(request, "text/html")
+      line = doc.querySelectorAll('a')
+    }
+    for(var i=0;i< line.length;i++){
+      var e = line[i]
+      if(e && lineTranslate[i]){
+        var c = '<b>'+e.innerText+'</b>'
+        c += ' '+lineTranslate[i].innerText
+        if(eleCache.findIndex(v=>{return v.i==e.innerText})==-1)
+        eleCache.push({i:e.innerText,k:lineTranslate[i].innerText,c:c})
+      }
+    }
+
+    if(!line||line.length==0){
+      var c = '<b>'+request+'</b>'
+      c += ' '+text
+      eleCache.push({i:request,k:text,c:c})
+    }
+    return eleCache
+  },
+  replaceFont = (texts,request)=>{
+    var 
+    fonts,
+    doc = self.objectIframe.document.body
+    if(self.targetIdContent)
+      doc = self.objectIframe.document.body.querySelector("div[id='"+self.targetIdContent+"']")
+
+    fonts = doc.querySelectorAll('font font:not(.ok)')
+    var rs = parserLogTC(texts,request)
+    //console.log(rs);
+    // console.log(texts);
+    // console.log(request);
+    //console.log(fonts);
+    rs.forEach(r0=>{
+      for(var i =0;i<fonts.length;i++){
+          var f = fonts[i]
+          if(f.innerText.trim()==r0.k.trim()){
+            f.innerHTML = r0.c
+            f.className='ok'
+            break;
+          }
+      }
+    })
+  }
   this.XMLHttpRequest.prototype.open = function() {
     //console.log('open');
     //console.log( arguments );
@@ -92,18 +164,12 @@ function overrideXMLHttpRequest (objectIframe){
         self.log.filter(v=>{
           if(v.tc == myParam){
             v.text=texts
+            setTimeout(replaceFont, 20, texts,v.request);
+            //replaceFont()
+            
             return;
           }
         })
-        //parserLog()
-        
-        //console.log(cacheRequest)
-        // if(Array.isArray(texts)){
-        //   for(var i =0;i<texts.length;i++)
-        //   parser(texts[i])
-        // }else{
-        //   parser(texts)
-        // }
       }
     }, false);
 
@@ -154,8 +220,8 @@ function overrideXMLHttpRequest (objectIframe){
     if(this.targetIdContent)
       doc = this.objectIframe.document.body.querySelector("div[id='"+this.targetIdContent+"']")
     
-    fonts = doc.querySelectorAll('font font')
-    
+    //fonts = doc.querySelectorAll('font font')
+    fonts = doc.querySelectorAll('font font:not(.ok)')
     var current = 0;
     self.myCache.map(() => task().then((res) =>{loadingBarStatus(current++, self.myCache,fonts)}));
     await Promise.all(self.myCache);
@@ -360,7 +426,7 @@ Epub.prototype.init = ()=>{
                     if(href){
                       //id = href.slice(href.indexOf('#')+1,href.length)
                       //prefixId = href.slice(0,href.indexOf('#'))
-                      console.log(href);
+                      //console.log(href);
                       //e.setAttribute('href','#')
                       //e.setAttribute('id',id)
 
