@@ -34,7 +34,7 @@
   <script src="js/services.js"></script>
   <script src="js/myDirective.js"></script>
 <style>
-#sourceFile,#headingFile{
+#source-File,#heading-File{
   border: 1px solid;
   padding: 5px;
   overflow: auto;
@@ -42,15 +42,15 @@
   height:80%;
   /*height: -webkit-fill-available;*/
 }
-#inputSource,#inputSourceEpubV2 {float: left}
-#displayContentEPUB,#sourceFileEpub,#iframeTranslateFromText{
+#input-Source,#input-Source-Epub-V2 {float: left}
+#display-Content-E-P-U-B,#source-File-E-P-U-B,#iframe-Translate-From-Text{
   width: 100%;
   height:90%;
   /*height: -webkit-fill-available;
   min-height: -webkit-fill-available;*/
 }
-#sourceFileContentTableEpub{width: 100%;}
-#listIframesEpub  iframe {
+#source-File-Content-Table-E-P-U-B{width: 100%;}
+#list-Iframes-E-P-U-B  iframe {
   width: 100%;
 }
 .uiProgress {
@@ -70,38 +70,40 @@
 <body ng-app="myApp">
   <my-tabs>
     <my-pane title = "Source EPUB" icon = 'glyphicon glyphicon-open' >
-      <div id="uiProgressEPUB" class="uiProgress">
-        <div id="uiBarEPUB" class="uiBar"></div>
+      <div id="ui-Progress-E-P-U-B" class="uiProgress">
+        <div id="ui-Bar-E-P-U-B" class="uiBar"></div>
       </div>
-      <input type="file" id="inputSourceEpubV2" multiple>
-      <input type="button" id='cmdTranslateEPUB' value = "Show Tool Translate">
-      <input type="button" id='cmdScrollTranslateEPUB' value = "Scroll and translate">
-      <input type="button" id='cmdDualLanguageEPUB' value = "Dual Language">
-      <input type="button" id='downloadFileEPUB' value = "Download">
-      <div id="resultBlockEPUB" class="hidden">
+      <input type="file" id="input-Source-Epub-V2" multiple>
+      <input type="button" id='cmd-Translate-E-P-U-B' value = "Show Tool Translate">
+      <input type="button" id='cmd-Scroll-Translate-E-P-U-B' value = "Scroll and translate">
+      <input type="button" id='cmd-Dual-Language-E-P-U-B' value = "Dual Language">
+      <input type="button" id='cmd-Optimal-E-P-U-B' value = "optimal">
+      <input type="button" id='cmd-Download-File-E-P-U-B' value = "Download">
+      <div id="result-Block-E-P-U-B" class="hidden">
         <h3>Content :</h3>
-        <div id="resultEPUB"></div>
+        <div id="result-E-P-U-B"></div>
       </div>
-      <iframe id="displayContentEPUB"></iframe>
+      <iframe id="display-Content-E-P-U-B"></iframe>
     </my-pane>
     <my-pane title = "Source File txt" icon = 'glyphicon glyphicon-open' >
-      <div id="uiProgressTXT" class="uiProgress">
-        <div id="uiBarTXT" class="uiBar"></div>
+      <div id="ui-Progress-T-X-T" class="uiProgress">
+        <div id="ui-Bar-T-X-T" class="uiBar"></div>
       </div>
-      <input type="file" id="inputSource" multiple>
-      <input type="button" id="cmdJoinLine" value='Join Line'>
-      <textarea id='sourceFile' style="display:none"></textarea>
-      <input type="button" id='cmdTranslateTXT' value = "Show Tool Translate">
-      <input type="button" id='cmdScrollTranslateTXT' value = "Scroll and translate">
-      <input type="button" id='cmdDualLanguageTXT' value = "Dual Language">
-      <input type="button" id='downloadFile' value = "download">
-      <iframe id='iframeTranslateFromText'></iframe>
-      <spam>Heading File</spam><input type="file" id="inputHeading" multiple>
-      <textarea id='headingFile'></textarea>
-      <input type="button" id='builtDoc' value = "builtDoc">
+      <input type="file" id="input-Source" multiple>
+      <input type="button" id="cmd-Join-Line" value='Join Line'>
+      <textarea id='source-File' style="display:none"></textarea>
+      <input type="button" id='cmd-Translate-T-X-T' value = "Show Tool Translate">
+      <input type="button" id='cmd-Scroll-Translate-T-X-T' value = "Scroll and translate">
+      <input type="button" id='cmd-Dual-Language-T-X-T' value = "Dual Language">
+      <input type="button" id='cmd-Optimal-T-X-T' value = "optimal">
+      <input type="button" id='download-File' value = "download">
+      <iframe id='iframe-Translate-From-Text'></iframe>
+      <spam>Heading File</spam><input type="file" id="input-Heading" multiple>
+      <textarea id='heading-File'></textarea>
+      <input type="button" id='built-Doc' value = "builtDoc">
       
-      <div id='resultBuiltDoc'></div>
-      <div id='resultBeforeBuiltDoc' style="display: none;"></div>
+      <div id='result-Built-Doc'></div>
+      <div id='result-Before-Built-Doc' style="display: none;"></div>
     </my-pane>
   </my-tabs>
     <script type="text/javascript">

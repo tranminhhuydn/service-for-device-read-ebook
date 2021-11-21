@@ -304,9 +304,6 @@ Epub.prototype.init = ()=>{
   var objOverride = new overrideXMLHttpRequest(displayContentEPUB.contentWindow)
   objOverride.targetIdContent ='contentEPUB'
 
-  cmdDualLanguageEPUB.onclick = ()=>{
-    objOverride.lineByLine()
-  }
   window['objOverride'] = objOverride
 
 
@@ -532,7 +529,7 @@ Epub.prototype.init = ()=>{
           handleFile(files[i]);
       }
   };
-  downloadFileEPUB.onclick = (event)=>{
+  cmdDownloadFileEPUB.onclick = (event)=>{
     var MIME_TYPE = "text/html",
     prefix = `<!DOCTYPE html><html><head><title>${fileNameEpub}</title><meta charset="utf-8"></head><body>`,
     blob = new Blob([prefix+contentEPUB.outerHTML+'</body></html>'], {type: MIME_TYPE}),
@@ -549,6 +546,23 @@ Epub.prototype.init = ()=>{
   }
   cmdScrollTranslateEPUB.onclick = (event)=>{
     scrollWindow(displayContentEPUB)
+  }
+  cmdDualLanguageEPUB.onclick = ()=>{
+    objOverride.lineByLine()
+  }
+  cmdOptimalEPUB.onclick = ()=>{
+    var bodyIframe = displayContentEPUB.contentWindow.document.body,
+    f = bodyIframe.querySelector('font'),
+    i=0;
+    while(f){
+      //console.log(i)
+      var
+      a = f.parentElement.innerHTML,
+      p = /(<font([^\>]*)>|<\/font>)/g;
+      f.parentElement.innerHTML = a.replace(p,(x)=>{return ''})
+      f = bodyIframe.querySelector('font')
+      i++
+    }
   }
 }
 

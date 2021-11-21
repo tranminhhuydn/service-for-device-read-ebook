@@ -127,11 +127,11 @@ init = ()=>{
     createScripTranslate(iframeTranslateFromText.contentWindow.document.body)
     
     setTimeout(()=>{
-      scrollWindow(iframeTranslateFromText.contentWindow)
+      
     },5000)
   }
   cmdScrollTranslateTXT.onclick = (event)=>{
-    scrollWindow(displayContentEPUB)
+    scrollWindow(iframeTranslateFromText)
   }
   downloadFile.onclick = ()=>{
     var MIME_TYPE = "text/html";
@@ -164,7 +164,20 @@ init = ()=>{
     sourceFile.value = c
     iframeTranslateFromText.contentWindow.document.querySelector('#my').innerText = c
   }
-
+  cmdOptimalTXT.onclick = ()=>{
+    var bodyIframe = iframeTranslateFromText.contentWindow.document.body,
+    f = bodyIframe.querySelector('font'),
+    i=0;
+    while(f){
+      //console.log(i)
+      var
+      a = f.parentElement.innerHTML,
+      p = /(<font([^\>]*)>|<\/font>)/g;
+      f.parentElement.innerHTML = a.replace(p,(x)=>{return ''})
+      f = bodyIframe.querySelector('font')
+      i++
+    }
+  }
   
 }
 window.addEventListener("load",()=>{

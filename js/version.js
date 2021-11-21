@@ -1,1 +1,1 @@
-app.newVersion = "1.0.11"
+app.newVersion = "1.0.12"

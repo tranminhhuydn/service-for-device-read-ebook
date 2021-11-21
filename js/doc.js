@@ -4,8 +4,18 @@ d.create = (tag,objs,parent)=>{var c = d.createElement(tag); for(var attr in obj
 
 d.globalIDs = ()=>{
   var globals = d.querySelectorAll('[id]')
+  function toTitleCase(str) {
+  var c = str.replace(
+      /(\w+)/g,
+      (txt) => {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    ).replace(/([^\w])/g,'');
+    return c.charAt(0).toLowerCase() + c.substr(1);
+  }
   globals.forEach(e=>{
-    window[e.id] = d.id(e.id)
+    var id = toTitleCase(e.id)
+    window[id] = d.id(e.id)
   })
 }
 
